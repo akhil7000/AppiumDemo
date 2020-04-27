@@ -22,6 +22,7 @@ allure {
 
 repositories {
     mavenCentral()
+    maven { url "https://cloud.experitest.com/repo/" }
 }
 
 dependencies {
@@ -32,15 +33,16 @@ dependencies {
     implementation "com.google.code.gson:gson:${gson_version}"
     compile "io.appium:java-client:${appium_version}"
     implementation "org.assertj:assertj-core:${assertj_version}"
-    implementation "com.codeborne:selenide:5.4.1"
-    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    implementation "com.codeborne:selenide:${selenide_version}"
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: "${logback_version}"
     implementation "io.qameta.allure:allure-selenide:${allure_selenide_version}"
     implementation "io.qameta.allure:allure-junit5:${allure_junit_version}"
     implementation group: 'io.qameta.allure', name: 'allure-java-commons', version: "${allure_version}"
-
+    implementation "com.experitest:appium-seetest-extension:+"
 }
 
 test{
+    systemProperties System.getProperties()
     useJUnitPlatform()
 }
 
@@ -58,4 +60,10 @@ task demoTestParallel(type: Test, description: "Running my demo Royal test...") 
     systemProperties['junit.jupiter.execution.parallel.mode.default'] = "same_thread"
     systemProperties['junit.jupiter.execution.parallel.mode.classes.default'] = "concurrent"
 
+}
+
+tasks.withType(Test) {
+    doFirst { //do all the below for all tasks which are tests
+        systemProperties System.getProperties()
+    }
 }

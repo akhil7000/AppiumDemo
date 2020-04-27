@@ -1,6 +1,9 @@
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.internal.bytebuddy.build.Plugin;
 import org.junit.jupiter.api.*;
@@ -14,8 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -25,21 +27,40 @@ public class DemoTest {
     DemoPOM demoPOM;
     SoftAssertions softAssertions;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private String os;
 
 
     @BeforeAll
     public void setUp() throws MalformedURLException {
         logger.info("BeforeAll setup");
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("deviceName","emulator-5554");
-        capabilities.setCapability("platformName","Android");
-        capabilities.setCapability("automationName","UiAutomator2");
-        capabilities.setCapability("app","/Users/admin/builds/Royal-Dev-1.23.Silver.apk");
-        capabilities.setCapability("noReset","false");
-        capabilities.setCapability("fullReset","false");
-        capabilities.setCapability("appPackage", "com.rccl.royalcaribbean.debug");
-        capabilities.setCapability("appActivity","com.rcl.excalibur.activity.AppSplashActivity");
-        driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
+        os=System.getProperty("os");
+        if(os.equalsIgnoreCase("android")){
+
+            capabilities.setCapability("deviceName","emulator-5554");
+            capabilities.setCapability("platformName","Android");
+            capabilities.setCapability("automationName","UiAutomator2");
+            capabilities.setCapability("app","/Users/admin/builds/Royal-Dev-1.23.Silver.apk");
+            capabilities.setCapability("noReset","false");
+            capabilities.setCapability("fullReset","false");
+            capabilities.setCapability("appPackage", "com.rccl.royalcaribbean.debug");
+            capabilities.setCapability("appActivity","com.rcl.excalibur.activity.AppSplashActivity");
+            driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
+        }
+        else{
+
+            capabilities.setCapability("deviceName","iPhone 8 Plus");
+            capabilities.setCapability("udid","4F52B121-DE2C-4309-8DBB-C2AEA5960D42");
+            capabilities.setCapability("platformName","iOS");
+            capabilities.setCapability("platformVersion","12.1");
+            capabilities.setCapability("automationName","XCUITest");
+            capabilities.setCapability("app","/Users/admin/Desktop/1.23.silver1.app");
+            capabilities.setCapability("noReset",true);
+            capabilities.setCapability("bundleId","com.rccl.royalcaribbean.excalibur");
+            driver = new IOSDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
+        }
+
+
         softAssertions=new SoftAssertions();
     }
 
@@ -54,7 +75,6 @@ public class DemoTest {
     @Test
     public void testDemo1() {
         logger.info("Test1");
-
         demoPOM=new DemoPOM(driver);
         demoPOM.clickOnSkip();
         Assertions.assertTrue(demoPOM.clickOnAllow(),"Allow Button Not Found - Hard Assert");
@@ -78,7 +98,6 @@ public class DemoTest {
     @ParameterizedTest
     @ValueSource(strings = {"Parameter1","Parameter2"})
     public void testDemo3(String test)  {
-
         logger.info("Test3: "+test);
     }
 
@@ -87,7 +106,6 @@ public class DemoTest {
     @Test
     public void testDemoTag() {
         logger.info("Only for a given tag");
-
     }
 
     @AfterAll
