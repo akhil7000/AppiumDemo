@@ -8,10 +8,8 @@ import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 
 /**
  ** Demo Test
@@ -21,7 +19,6 @@ import java.net.URL;
 public class DemoExperiTest {
     SoftAssertions softAssertions;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private String accessKey = "eyJ4cC51Ijo0NDQ4MjksInhwLnAiOjEsInhwLm0iOiJNVFU0TmpnMU5qVXhPRGd6T1EiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE5MDIyMTY1MTksImlzcyI6ImNvbS5leHBlcml0ZXN0In0.OcJLpyVAh-nA-8Qy90SqSSX-qw5zIpogZEeTAlz8Sbg";
     protected IOSDriver<IOSElement> driver = null;
     DesiredCapabilities dc = new DesiredCapabilities();
