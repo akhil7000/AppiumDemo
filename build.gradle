@@ -59,7 +59,7 @@ task demoTestParallel(type: Test, description: "Running my demo Royal test...") 
     systemProperties['junit.jupiter.execution.parallel.enabled'] = true
     systemProperties['junit.jupiter.execution.parallel.mode.default'] = "same_thread"
     systemProperties['junit.jupiter.execution.parallel.mode.classes.default'] = "concurrent"
-
+    systemProperties['junit.jupiter.execution.parallel.config.fixed.parallelism'] = 5
 }
 
 tasks.withType(Test) {

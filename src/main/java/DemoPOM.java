@@ -7,12 +7,15 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 public class DemoPOM {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     AppiumDriver<MobileElement> driver;
 
     /**
@@ -26,6 +29,7 @@ public class DemoPOM {
      * The allow button.
      */
     @HowToUseLocators(iOSXCUITAutomation = LocatorGroupStrategy.ALL_POSSIBLE, androidAutomation = LocatorGroupStrategy.ALL_POSSIBLE)
+    @iOSXCUITFindBy(accessibility = "Always Allow")
     @iOSXCUITFindBy(accessibility = "Allow")
     @iOSXCUITFindBy(accessibility = "Permitir")
     @iOSXCUITFindBy(accessibility = "允许")
@@ -57,7 +61,7 @@ public class DemoPOM {
             allowButton.click();
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            logger.info(e.getMessage());
             return false;
         }
 
