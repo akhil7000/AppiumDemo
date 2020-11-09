@@ -1,14 +1,10 @@
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.assertj.core.api.SoftAssertions;
-import org.assertj.core.internal.bytebuddy.build.Plugin;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -20,7 +16,15 @@ import java.net.URL;
 import static com.codeborne.selenide.Selenide.*;
 
 /**
-** Demo Test
+ * Demo Test:
+ *      mobile execution on a local device - ios and android with POM.
+ *      web execution on selenide
+ *      Junit basic annotations - BeforeAll, BeforeEach, Test, AfterEach, AfterAll
+ *      Junit parameterised test
+ *      Junit customised Tags.
+ *      Junit order tags
+ *      soft assertions
+ *
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -61,8 +65,6 @@ public class DemoTest {
             capabilities.setCapability("bundleId","com.rccl.royalcaribbean.excalibur");
             driver = new IOSDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
         }
-
-
         softAssertions=new SoftAssertions();
     }
 
@@ -73,6 +75,9 @@ public class DemoTest {
     }
 
 
+    /**
+     * Demo Test to execute a simple mobile script on android/ios
+     */
     @Order(2)
     @Test
     public void testDemo1() {

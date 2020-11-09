@@ -46,14 +46,23 @@ test{
     useJUnitPlatform()
 }
 
+/**
+ * This task would run all the tests
+ */
 task demoTest(type: Test, description: "Running my demo test...") {
     useJUnitPlatform()
 }
 
+/**
+ * This task would run ony those tests which has Tag -> Royal
+ */
 task demoTestRoyal(type: Test, description: "Running my demo Royal test...") {
     useJUnitPlatform() { includeTags 'Royal' }
 }
 
+/**
+ * This task would run all the test classes in parallel with the thread-count given
+ */
 task demoTestParallel(type: Test, description: "Running my demo Royal test...") {
     useJUnitPlatform()
     systemProperties['junit.jupiter.execution.parallel.enabled'] = true

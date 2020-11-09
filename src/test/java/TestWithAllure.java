@@ -1,4 +1,3 @@
-import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
@@ -11,8 +10,6 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Issue;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +20,11 @@ import java.net.URL;
 
 import static org.slf4j.Logger.ROOT_LOGGER_NAME;
 
+/**
+ * Demo Test - for AllureReports
+ *  Report Directory in a gradle project : build/allure-results
+ *  Generate allure reports after running test : allure serve <path to of allure-results>
+ */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TestWithAllure {
     AppiumDriver<MobileElement> driver;
@@ -57,7 +59,6 @@ public class TestWithAllure {
     }
 
     @Issue("JIRA-8909")
-
     @DisplayName("Test 1")
     @Description("Test1 execution")
     @Test
