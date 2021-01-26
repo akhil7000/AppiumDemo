@@ -46,7 +46,7 @@ public class DemoExperiTest {
 
     @AfterEach
     public void tearDown() {
-        System.out.println("Report URL: "+ driver.getCapabilities().getCapability("reportUrl"));
+        logger.info("Report URL: "+ driver.getCapabilities().getCapability("reportUrl"));
         driver.quit();
     }
 
